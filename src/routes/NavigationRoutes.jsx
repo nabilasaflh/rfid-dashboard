@@ -7,6 +7,10 @@ import DashboardLayout from 'layout/Dashboard';
 // render - dashboard pages
 const DefaultPages = Loadable(lazy(() => import('views/navigation/dashboard/Default')));
 
+const RFIDTagRequest = Loadable(
+  lazy(() => import('views/navigation/rfid-tag-request'))
+);
+
 // ==============================|| NAVIGATION ROUTING ||============================== //
 
 const NavigationRoutes = {
@@ -19,7 +23,11 @@ const NavigationRoutes = {
         {
           path: '/',
           element: <DefaultPages />
-        }
+        },
+{
+  path: 'rfid-tag-request',
+  element: <RFIDTagRequest />
+}
       ]
     }
   ]

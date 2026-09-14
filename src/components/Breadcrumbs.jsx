@@ -3,8 +3,6 @@ import { useLocation } from 'react-router-dom';
 
 // react-bootstrap
 import Breadcrumb from 'react-bootstrap/Breadcrumb';
-import Col from 'react-bootstrap/Col';
-import Row from 'react-bootstrap/Row';
 
 // project-imports
 import { APP_DEFAULT_PATH } from 'config';
@@ -19,23 +17,22 @@ export default function Breadcrumbs() {
   const [item, setItem] = useState({});
 
   const getCollapse = useCallback(
-    (item) => {
-      if (item.children) {
-        item.children.forEach((collapse) => {
+    (menuItem) => {
+      if (menuItem.children) {
+        menuItem.children.forEach((collapse) => {
           if (collapse.type === 'collapse') {
             getCollapse(collapse);
           } else if (collapse.type === 'item' && location.pathname === collapse.url) {
-            setMain((prev) => ({
-              ...prev,
-              type: 'collapse', // Add this
-              title: typeof item.title === 'string' ? item.title : undefined
-            }));
-            setItem((prev) => ({
-              ...prev,
-              type: 'item', // Add this
+            setMain({
+              type: 'collapse',
+              title: typeof menuItem.title === 'string' ? menuItem.title : undefined
+            });
+
+            setItem({
+              type: 'item',
               title: typeof collapse.title === 'string' ? collapse.title : undefined,
               breadcrumbs: collapse.breadcrumbs !== false
-            }));
+            });
           }
         });
       }
@@ -44,6 +41,9 @@ export default function Breadcrumbs() {
   );
 
   useEffect(() => {
+    setMain({});
+    setItem({});
+
     navigation.items.forEach((navItem) => {
       if (navItem.type === 'group') {
         getCollapse(navItem);
@@ -51,50 +51,50 @@ export default function Breadcrumbs() {
     });
   }, [location.pathname, getCollapse]);
 
-  let mainContent;
-  let itemContent;
-  let breadcrumbContent;
-  let title = '';
+  const title = item.title ?? '';
 
-  if (main?.type === 'collapse') {
-    mainContent = (
-      <Breadcrumb.Item href="#" className="text-capitalize">
-        {main.title}
-      </Breadcrumb.Item>
-    );
+  if (!title || item.breadcrumbs === false) {
+    return null;
   }
 
-  if (item?.type === 'item') {
-    title = item.title ?? '';
-    itemContent = (
-      <Breadcrumb.Item href="#" className="text-capitalize">
-        {title}
-      </Breadcrumb.Item>
-    );
+  return (
+    <div
+      className="page-header"
+      style={{
+        padding: '0 0 16px 0',
+        margin: 0
+      }}
+    >
+      <div className="page-block">
+        <div>
+          <h5
+            className="mb-2"
+            style={{
+              fontSize: '24px',
+              fontWeight: '500'
+            }}
+          >
+            {title}
+          </h5>
 
-    if (item.breadcrumbs !== false) {
-      breadcrumbContent = (
-        <div className="page-header">
-          <div className="page-block">
-            <Row className="align-items-center">
-              <Col md={12} className="page-header-title text-capitalize">
-                <h5>{title}</h5>
-              </Col>
-              <Col md={12}>
-                <Breadcrumb listProps={{ style: { marginBottom: 0 } }}>
-                  <Breadcrumb.Item href={APP_DEFAULT_PATH}>Home</Breadcrumb.Item>
-                  {mainContent}
-                  {itemContent}
-                </Breadcrumb>
-              </Col>
-            </Row>
-          </div>
+          <Breadcrumb
+            style={{
+              margin: 0,
+              fontSize: '14px'
+            }}
+          >
+            {location.pathname !== APP_DEFAULT_PATH && location.pathname !== '/' && (
+              <Breadcrumb.Item href={APP_DEFAULT_PATH}>
+                Home
+              </Breadcrumb.Item>
+            )}
+
+            <Breadcrumb.Item active className="text-capitalize">
+              {title}
+            </Breadcrumb.Item>
+          </Breadcrumb>
         </div>
-      );
-    } else {
-      breadcrumbContent = null;
-    }
-  }
-
-  return <>{breadcrumbContent}</>;
+      </div>
+    </div>
+  );
 }

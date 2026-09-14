@@ -127,3 +127,10 @@ dist
 .yarn/install-state.gz
 .pnp.*
 config.bat
+
+# Environment files
+.env
+*.env
+
+# Database files
+*.db

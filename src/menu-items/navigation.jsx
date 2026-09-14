@@ -1,14 +1,21 @@
 const navigation = {
-  id: 'group-dashboard-loading-unique',
-  title: 'Navigation',
+  id: 'navigation',
+  title: '',
   type: 'group',
   children: [
     {
       id: 'dashboard',
-      title: 'Dashboard',
+      title: 'Home',
       type: 'item',
-      icon: 'ph ph-house-line',
-      url: '/'
+      url: '/',
+      icon: 'ti ti-home'
+    },
+    {
+      id: 'rfid-tag-request',
+      title: 'RFID Tag Request',
+      type: 'item',
+      url: '/rfid-tag-request',
+      icon: 'ti ti-id'
     }
   ]
 };

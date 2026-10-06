@@ -164,7 +164,7 @@ export default function AuthLoginForm({ link }) {
             lineHeight: '38px'
           }}
         >
-          RFID Database
+          RFID Administration System
         </h1>
 
         <p

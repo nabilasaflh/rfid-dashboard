@@ -1,17 +1,15 @@
 import { useState, useEffect, useCallback } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 // react-bootstrap
 import Breadcrumb from 'react-bootstrap/Breadcrumb';
 
 // project-imports
-import { APP_DEFAULT_PATH } from 'config';
 import navigation from 'menu-items';
-
-// ==============================|| MAIN BREADCRUMB ||============================== //
 
 export default function Breadcrumbs() {
   const location = useLocation();
+  const navigate = useNavigate();
 
   const [main, setMain] = useState({});
   const [item, setItem] = useState({});
@@ -22,15 +20,24 @@ export default function Breadcrumbs() {
         menuItem.children.forEach((collapse) => {
           if (collapse.type === 'collapse') {
             getCollapse(collapse);
-          } else if (collapse.type === 'item' && location.pathname === collapse.url) {
+          } else if (
+            collapse.type === 'item' &&
+            location.pathname === collapse.url
+          ) {
             setMain({
               type: 'collapse',
-              title: typeof menuItem.title === 'string' ? menuItem.title : undefined
+              title:
+                typeof menuItem.title === 'string'
+                  ? menuItem.title
+                  : undefined
             });
 
             setItem({
               type: 'item',
-              title: typeof collapse.title === 'string' ? collapse.title : undefined,
+              title:
+                typeof collapse.title === 'string'
+                  ? collapse.title
+                  : undefined,
               breadcrumbs: collapse.breadcrumbs !== false
             });
           }
@@ -67,6 +74,7 @@ export default function Breadcrumbs() {
     >
       <div className="page-block">
         <div>
+          {/* Page Title */}
           <h5
             className="mb-2"
             style={{
@@ -77,19 +85,28 @@ export default function Breadcrumbs() {
             {title}
           </h5>
 
+          {/* Breadcrumb */}
           <Breadcrumb
             style={{
               margin: 0,
               fontSize: '14px'
             }}
           >
-            {location.pathname !== APP_DEFAULT_PATH && location.pathname !== '/' && (
-              <Breadcrumb.Item href={APP_DEFAULT_PATH}>
+            {location.pathname !== '/' && (
+              <Breadcrumb.Item
+                onClick={() => navigate('/')}
+                style={{
+                  cursor: 'pointer'
+                }}
+              >
                 Home
               </Breadcrumb.Item>
             )}
 
-            <Breadcrumb.Item active className="text-capitalize">
+            <Breadcrumb.Item
+              active
+              className="text-capitalize"
+            >
               {title}
             </Breadcrumb.Item>
           </Breadcrumb>

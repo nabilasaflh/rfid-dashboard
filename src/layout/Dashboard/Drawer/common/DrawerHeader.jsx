@@ -1,13 +1,7 @@
 import { Link } from 'react-router-dom';
 
-// react-bootstrap
-import Image from 'react-bootstrap/Image';
-
 // project-import
 import { APP_DEFAULT_PATH } from 'config';
-
-// assets
-import logo from 'assets/images/logo indocement 2.png';
 
 export const DrawerHeader = () => {
   return (
@@ -27,34 +21,42 @@ export const DrawerHeader = () => {
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
-          textDecoration: 'none'
+          justifyContent: 'center',
+          textDecoration: 'none',
+          width: '100%',
+          marginTop: '35px'
         }}
       >
-        <Image
-          src={logo}
-          fluid
-          className="logo logo-lg"
-          alt="logo"
+        <span
           style={{
-            maxWidth: '240px',
-            height: 'auto',
-            marginTop: '35px'
+            color: '#ffffff',
+            fontSize: '26px',
+            fontWeight: '700',
+            letterSpacing: '0.2px',
+            textAlign: 'center',
+            whiteSpace: 'nowrap',
+            lineHeight: '1.2',
+            marginTop: '12px'
           }}
-        />
+        >
+          Logistic Division
+          <br />
+          Indocement
+        </span>
 
         <span
-  style={{
-    marginTop: '-2px',
-    color: '#ffffff',
-    fontSize: '15px',
-    fontWeight: '500',
-    letterSpacing: '0.2px',
-    textAlign: 'center',
-    whiteSpace: 'nowrap'
-  }}
->
-  RFID Database Citeureup
-</span>
+          style={{
+            marginTop: '7px',
+            color: '#ffffff',
+            fontSize: '14px',
+            fontWeight: '400',
+            letterSpacing: '0.2px',
+            textAlign: 'center',
+            whiteSpace: 'nowrap'
+          }}
+        >
+          RFID Administration System
+        </span>
       </Link>
     </div>
   );

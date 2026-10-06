@@ -129,6 +129,7 @@ dist
 config.bat
 
 # Environment files
+.env
 *.env
 
 # Database files

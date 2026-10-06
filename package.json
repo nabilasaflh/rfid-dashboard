@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "start": "vite",
+    "start": "node api.js && vite",
     "build": "vite build",
     "lint": "eslint \"src/**/*.{js,jsx,ts,tsx}\"",
     "lint:fix": "eslint --fix \"src/**/*.{js,jsx,ts,tsx}\"",
@@ -19,6 +19,7 @@
     "chance": "1.1.13",
     "formik": "2.4.6",
     "jsvectormap": "1.7.0",
+    "qrcode": "^1.5.4",
     "react": "19.2.0",
     "react-apexcharts": "1.8.0",
     "react-bootstrap": "2.10.10",

@@ -10,6 +10,10 @@ const LoginPage = Loadable(lazy(() => import('views/auth/login/Login')));
 // render - register pages
 const RegisterPage = Loadable(lazy(() => import('views/auth/register/Register')));
 
+const ChangePasswordPage = Loadable(
+  lazy(() => import('views/auth/change-password'))
+);
+
 // ==============================|| AUTH PAGES ROUTING ||============================== //
 
 const PagesRoutes = {
@@ -26,6 +30,10 @@ const PagesRoutes = {
         {
           path: 'register',
           element: <RegisterPage />
+        },
+        {
+          path: 'change-password',
+          element: <ChangePasswordPage />
         }
       ]
     }
